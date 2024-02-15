@@ -1,7 +1,8 @@
 require_relative 'board'
 class Game
   def initialize
-    puts "Game initialize"
+    @game_continue = true
+    @starting_roles
   end
 
   def start
@@ -10,7 +11,11 @@ class Game
   end
 
   def gameloop
-    starting_roles = pick_player_role
+    player_roles = pick_player_role
+    while @game_continue
+      @game_continue = try_again?
+      player_roles = switch_roles(player_roles)
+    end
   end
 
   #pick if player wants to play as the codebreaker or codemaker
@@ -18,19 +23,36 @@ class Game
     puts "Which side do you want to start at"
     puts "'Codebreaker' or 'Codemaker'"
     loop do
-    player_choice = gets.chomp
-    if player_choice.downcase == 'codemaker'
+    player_role_choice = gets.chomp
+    if player_role_choice.downcase == 'codemaker'
       return "codemaker"
-    elsif player_choice.downcase == 'codebreaker'
+    elsif player_role_choice.downcase == 'codebreaker'
       return "codebreaker"
     else
       puts "Invalid Input"
     end
     end
   end
+  
+  #switches player role
+  def switch_roles(previous_role)
+    if previous_role == "codemaker"
+      return "codebreaker"
+    else
+      return "codemaker"
+    end
+  end
 
   #Ask player if they want to play again
   def try_again?
+    puts "Do you want to play again? Type 'yes' or 'no'"
+    player_choice_repeat = gets.chomp
+    if player_choice_repeat.downcase == 'yes'
+      return true
+    elsif player_choice_repeat.downcase == 'no'
+      return false
+    else
+      puts "Invalid"
+    end
   end
-
 end
