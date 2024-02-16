@@ -3,10 +3,12 @@ class Game
   def initialize
     @game_continue = true
     @starting_roles
+    @board = Board.new
   end
 
   def start
     puts "Welcome to the mastermind game"
+    puts color_pegs
     gameloop
   end
 
@@ -33,7 +35,7 @@ class Game
     end
     end
   end
-  
+
   #switches player role
   def switch_roles(previous_role)
     if previous_role == "codemaker"
