@@ -13,7 +13,6 @@ class Codemaker
     puts "Codemaker create your code by typing the 4 colors you want to use"
     puts "'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple'"
     player_colors = []
-    count = 1
     while player_colors.length != 4
       puts "Input Colour #{player_colors.length + 1}"
       player_choice = gets.chomp

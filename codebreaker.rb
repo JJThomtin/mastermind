@@ -17,14 +17,13 @@ class Codebreaker
   #Tells the codebreaker if they are correct that the color they guess
   #is in the combination and if that color is in the right spot
   def hint_system(guesses)
-    for guess_index in 1..4 do 
-      if @code.include?(guesses[guess_index-1])
-        #White hint tells the codebreaker that a correct colour peg exist in their guess
+    for index in 0..3 do 
+      if @code.include?(guesses[index])
+        #White hint tells the codebreaker that a colour peg exist in their guess
         hint = "white"
-        if @code[0] == guesses(guess_index)
-        if @code[0] == guesses(guess_index)
-        if @code[0] == guesses(guess_index)
-        if @code[0] == guesses(guess_index)
+        if @code[index] == guesses[index]
+          #Red hint tells the codebreaker that a colour peg in their guess is in the right position
+          hint = "red"
         end
       end
     end
