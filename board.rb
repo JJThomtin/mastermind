@@ -1,4 +1,3 @@
-require_relative 'codemaker'
 require_relative 'codebreaker'
 class Board
   def initialize

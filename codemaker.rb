@@ -1,9 +1,7 @@
-
+require_relative 'codemaker'
 class Codemaker
-  attr_reader :colors
   def initialize
     @colors = ["red", "orange", "yellow", "green", "blue", "purple"]
-
   end
   #Computer creates the code
   def computer_make_code
