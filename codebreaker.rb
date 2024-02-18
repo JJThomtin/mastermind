@@ -12,6 +12,20 @@ class Codebreaker
 
   #Player tries to guess the code and returns their guess
   def player_code_breaker
+    guesses = []
+    puts "Enter the color of each peg that you want to guess:"
+    puts "Options -->"
+    puts "'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple'"
+    while guesses.length < 4
+      guess = gets.chomp
+      if @colors.include?(guess)
+        guesses.push(guess)
+        puts "You have guessed #{guesses.join(", ")}"
+      else
+        puts "Invalid Color"
+      end
+    end
+    guesses
   end
 
   #Tells the codebreaker if they are correct that the color they guess
@@ -19,6 +33,7 @@ class Codebreaker
   def hint_system(guesses)
     hint_array = []
     for index in 0..3 do 
+      #No hint tells the code breaker that a colour peg does not exist in the code
       hint = "none"
       if @code.include?(guesses[index])
         #White hint tells the codebreaker that a colour peg exist in their guess
