@@ -17,7 +17,9 @@ class Codebreaker
   #Tells the codebreaker if they are correct that the color they guess
   #is in the combination and if that color is in the right spot
   def hint_system(guesses)
+    hint_array = []
     for index in 0..3 do 
+      hint = "none"
       if @code.include?(guesses[index])
         #White hint tells the codebreaker that a colour peg exist in their guess
         hint = "white"
@@ -26,6 +28,8 @@ class Codebreaker
           hint = "red"
         end
       end
+      hint_array.push(hint)
     end
+    hint_array
   end
 end
