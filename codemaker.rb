@@ -1,11 +1,10 @@
-require_relative 'codemaker'
 class Codemaker
   def initialize
     @colors = ["red", "orange", "yellow", "green", "blue", "purple"]
   end
   #Computer creates the code
   def computer_make_code
-    [@colors.shuffle.first, @colors.shuffle.first, @colors.shuffle.first, @colors.shuffle.first]
+    @color.sample(4)
   end
 
   #Player creates the code 
@@ -16,11 +15,14 @@ class Codemaker
     while player_colors.length != 4
       puts "Input Colour #{player_colors.length + 1}"
       player_choice = gets.chomp
-      if @colors.include?(player_choice)
+      if @colors.include?(player_choice) && !player_colors.include?(player_choice)
         player_colors.push(player_choice)
+      elsif player_colors.include?(player_choice)
+        puts "Color is already chosen"
       else
-        puts "Wrong colour"
+        puts "Invalid Color"
       end
     end
+    player_colors
   end
 end

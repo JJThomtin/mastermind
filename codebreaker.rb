@@ -1,13 +1,43 @@
 class Codebreaker
-  def initialize(code)
-    @code = code
+
+  def initialize()
+    @computer_previous_guess = []
+    @computer_current_guess = []
+    @answer = []
+    @possible_positions = [true, true, true, true]
+    @possible_colors = ["red", "orange", "yellow", "green", "blue", "purple"]
     @colors = ["red", "orange", "yellow", "green", "blue", "purple"]
   end
 
-
   #Computer tries to guess the code and returns it
-  def computer_code_breaker
-    
+  def computer_code_breaker()
+    #Computer's first guess 
+    if @computer_current_guess.empty?
+      @computer_current_guess = [@colors.sample, @colors.sample, @colors.sample, @colors.sample]
+      puts "Computer guessed #{@computer_current_guess}"
+    end
+    @computer_previous_guess = @computer_current_guess
+    hints = hint_system(@computer_previous_guess)
+    hints.each_with_index {|clue, idx|
+      if clue == "red"
+        @answer[idx] == @computer_previous_guess[idx]
+        @possible_colors.delete(@computer_previous_guess[idx])
+      elsif clue == "white"
+        @answer[idx] = "unknown"
+      else
+        @possible_colors.delete(@computer_previous_guess[idx])
+        @answer[idx] = "unknown"
+      end
+    }
+    guesses = (0..@possible_colors.length-1).to_a.sample(@answer.tally["unknown"])
+    @answer.each { |guess, idx|
+      if guess == "unknown"
+        @computer_current_guess[@computer_current_guess.findIndex("unknown")] = guesses.pop
+      else
+        @computer_current_guess[idx] = @answer[idx]
+      end
+    }
+    return @computer_current_guess
   end
 
   #Player tries to guess the code and returns their guess
@@ -16,6 +46,7 @@ class Codebreaker
     puts "Enter the color of each peg that you want to guess:"
     puts "Options -->"
     puts "'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple'"
+    #Validates if the player guesses in the correct format (4 valid colors)
     while guesses.length < 4
       guess = gets.chomp
       if @colors.include?(guess)
