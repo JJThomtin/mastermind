@@ -1,10 +1,10 @@
-require_relative 'codemaker'
 # frozen_string_literal: true
 
+require_relative 'player_codemaker'
+require_relative 'player_codebreaker'
+# Game class runs the game structure for mastermind
 class Game
-  include Codemaker
   def initialize
-    @role
     @game_continue = true
   end
 
@@ -13,23 +13,31 @@ class Game
     @role = pick_starting_role
     gameloop
   end
-  
+
   def gameloop
     while @game_continue
-      if @role = "codebreaker"
+      if @role == 'codebreaker'
         player_codebreaker_game
+      else
+        player_codemaker_game
       end
       try_again
     end
-  end 
-
-  def player_codebreaker_game
-    puts computer_make_code
   end
 
-  #Allows the user to play the game again again
+  def player_codebreaker_game
+    codebreaker_game = Codebreaker.new
+    codebreaker_game.computer_make_code
+  end
+
+  def player_codemaker_game
+    codemaker_game = Codemaker.new
+    codemaker_game.player_make_code
+  end
+
+  # Allows the user to play the game again again
   def try_again
-    puts "Do you want to play again"
+    puts 'Do you want to play again'
     puts "Type 'yes' or 'no'"
     loop do
       play_response = gets.chomp
