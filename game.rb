@@ -1,6 +1,8 @@
+require_relative 'codemaker'
 # frozen_string_literal: true
 
 class Game
+  include Codemaker
   def initialize
     @role
     @game_continue = true
@@ -14,9 +16,16 @@ class Game
   
   def gameloop
     while @game_continue
+      if @role = "codebreaker"
+        player_codebreaker_game
+      end
       try_again
     end
   end 
+
+  def player_codebreaker_game
+    puts computer_make_code
+  end
 
   #Allows the user to play the game again again
   def try_again
@@ -35,7 +44,7 @@ class Game
       end
     end
   end
-  
+
   # User picks if they want to start as the codemaker or codebreaker
   def pick_starting_role
     puts 'Do you want to start as the Codemaker or the Codebreaker'
