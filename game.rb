@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-require_relative 'player_codemaker'
-require_relative 'player_codebreaker'
-require_relative 'hint_system'
+require_relative 'human_player'
+require_relative 'computer_player'
 # Game class runs the game structure for mastermind
 class Game
   def initialize
+    Human_Player.new
+    Computer_Player.new
     @game_continue = true
+    @turns = 1
   end
 
   def start
@@ -16,7 +18,6 @@ class Game
   end
 
   def gameloop
-    Hint_system.new
     while @game_continue
       if @role == 'codebreaker'
         player_codebreaker_game
@@ -27,17 +28,11 @@ class Game
     end
   end
 
-  def player_codebreaker_game
-    codebreaker_game = Codebreaker.new
-    codebreaker_game.computer_make_code
-  end
+  def player_codebreaker_game; end
 
-  def player_codemaker_game
-    codemaker_game = Codemaker.new
-    codemaker_game.player_make_code
-  end
+  def player_codemaker_game; end
 
-  # Allows the user to play the game again again
+  # Allows the user to play the game again
   def try_again
     puts 'Do you want to play again'
     puts "Type 'yes' or 'no'"
