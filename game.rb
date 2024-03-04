@@ -2,11 +2,15 @@
 
 require_relative 'human_player'
 require_relative 'computer_player'
+require_relative 'game_system'
 # Game class runs the game structure for mastermind
 class Game
   def initialize
-    Human_Player.new
-    Computer_Player.new
+    @hint = []
+    @guess = []
+    @human_player = Human_Player.new
+    @computer_player = Computer_Player.new
+    @game_system = Game_System.new
     @game_continue = true
     @turns = 1
   end
@@ -28,9 +32,19 @@ class Game
     end
   end
 
-  def player_codebreaker_game; end
+  def player_codebreaker_game
+    @answer = @computer_player.computer_make_code
+    puts "#{@answer.join("")}"
+    until @answer == @guess do
+      @guess = @human_player.player_code_breaker
+      hint = @game_system.hint_system(@guess, @answer)
+      puts "#{hint.join("")}"
+    end
+  end
 
-  def player_codemaker_game; end
+  def player_codemaker_game
+    @hint = @human_player.player_make_code
+  end
 
   # Allows the user to play the game again
   def try_again

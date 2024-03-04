@@ -7,15 +7,16 @@ class Game_System
   def hint_system(guess, answer)
     hint = []
     answer.each_with_index do |element, index|
-      if answer.push(guess[index])
+      if answer.include?("#{guess[index]}")
         # White tells the codebreaker that color peg exists in the code
         hint.push('white')
         # Red tells the codebreaker that the color peg placement at index is correct
-        hint[index] = 'red' if element == answer[index]
+        hint[index] = 'red' if element == guess[index]
       else
         # None tells the codebreaker that the color peg does not exists
         hint.push('none')
       end
     end
+    hint
   end
 end
