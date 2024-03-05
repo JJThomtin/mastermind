@@ -24,7 +24,9 @@ class Human_Player
   def player_code_breaker
     player_code = []
     while player_code.length < 4
+      puts "Input Guess #{player_code.length+1}\n"
       player_colour = gets.chomp
+      puts "\n"
       if COLOUR.include?(player_colour)
         player_code.push(player_colour)
       else
